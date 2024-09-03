@@ -10,21 +10,16 @@ import {
   FlatList,
 } from "react-native";
 
-
 // test commit
 import GoalsItem from "./components/GoalsItems";
+import GoalsInput from "./components/GoalsInput";
+
 import generateUniqueNumber from "./helpers/goalsHelper";
 
 export default function Appssed() {
-  const [goalsInputText, setgoalsInputText] = useState("");
   const [allGoals, setAllGoals] = useState([]);
 
-  const getInputText = (inputtext) => {
-    setgoalsInputText(inputtext);
-    console.log("Input text-->  ", goalsInputText);
-  };
-
-  const all_goals_comp = () => {
+  const all_goals_comp = (goalsInputText) => {
     `the below is one way of appending to the list in usestate but is not the right approach`;
 
     // setAllGoals([...allGoals,goalsInputText]);
@@ -57,27 +52,9 @@ export default function Appssed() {
   };
   return (
     <View style={styles.appcontainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          onChangeText={getInputText}
-          style={styles.inputText}
-          placeholder="Your goals here"
-        />
-
-        <Button onPress={all_goals_comp} title="Add" backgroundColor="blue" />
-      </View>
+      <GoalsInput onPressFunction={all_goals_comp} />
 
       <View style={styles.goalsContainer}>
-        {/* <ScrollView>
-          {allGoals.map((goal) => (
-            <View style={styles.individualGoals}>
-              <Text key={{ goal }} style={styles.goalsText}>
-                {goal}
-              </Text>
-            </View>
-          ))}
-        </ScrollView> */}
-
         <FlatList
           data={allGoals}
           renderItem={(itemobject) => {
@@ -94,6 +71,17 @@ export default function Appssed() {
             return itemobject.id;
           }}
         />
+
+        {/* the below is other  way to do it*/}
+        {/* <ScrollView>
+          {allGoals.map((goal) => (
+            <View style={styles.individualGoals}>
+              <Text key={{ goal }} style={styles.goalsText}>
+                {goal}
+              </Text>
+            </View>
+          ))}
+        </ScrollView> */}
       </View>
     </View>
   );

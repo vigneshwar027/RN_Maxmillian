@@ -165,3 +165,6 @@ ScrollView:
   NOte: By default the view or text does not provide extra space than what it is needed for it's children or the text in it.
 
   Button is a self closing component and it does not take style as prop coz it is already styled and u can't influence it further, if u wanna style more then u wanna go for button pressable component.
+
+
+  Note : when u move all the components to the component section only the components should move all the necessary values and function should be passed only as a prop.
