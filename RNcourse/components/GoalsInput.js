@@ -8,9 +8,10 @@ import {
   View,
   ScrollView,
   FlatList,
+  Modal,
 } from "react-native";
 
-GoalsInput = function ({ onPressFunction }) {
+GoalsInput = function ({ onPressFunction, isModalVisible }) {
   const [goalsInputText, setgoalsInputText] = useState("");
 
   const getInputText = (inputtext) => {
@@ -24,15 +25,31 @@ GoalsInput = function ({ onPressFunction }) {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        onChangeText={getInputText}
-        style={styles.inputText}
-        placeholder="Your goals here"
-        value={goalsInputText}
-      />
-      <Button onPress={addGoalsHandler} title="Add" backgroundColor="blue" />
-    </View>
+    <Modal visible={true} animationType="slide">
+      <View style={styles.inputContainer}>
+        <View style={{ alignItems: "center" }}>
+          <TextInput
+            onChangeText={getInputText}
+            style={styles.inputText}
+            placeholder="Your goals here"
+            value={goalsInputText}
+          />
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="New button" />
+          </View>
+          <View style={styles.button}>
+            <Button
+              onPress={addGoalsHandler}
+              title="Add"
+              backgroundColor="blue"
+            />
+          </View>
+        </View>
+      </View>
+    </Modal>
   );
 };
 
@@ -45,15 +62,28 @@ const styles = StyleSheet.create({
     color: "red",
     borderWidth: 2,
     padding: 10,
-    width: "70%",
+    width: "100%",
+    marginHorizontal: "10%",
   },
   inputContainer: {
+    flex: 1,
     paddingBottom: 20,
-    marginTop: "20%",
+    paddingHorizontal: "5%",
     borderBottomWidth: 1,
     borderBottomColor: "red",
+    // flexDirection: "row",
+    justifyContent: "center",
+    // alignItems: "stretch",
+  },
+  buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    // alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  button: {
+    width: "40%",
+    marginHorizontal: "3%",
+    backgroundColor:"magenta",
+    borderRadius:"50",
   },
 });

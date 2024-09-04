@@ -19,6 +19,14 @@ import generateUniqueNumber from "./helpers/goalsHelper";
 export default function Appssed() {
   const [allGoals, setAllGoals] = useState([]);
 
+  const [isModalVisible,setisModalVisible] = useState(false)
+
+
+  function toggleModalVisible(){
+    setisModalVisible(true)
+  }
+
+
   const all_goals_comp = (goalsInputText) => {
     `the below is one way of appending to the list in usestate but is not the right approach`;
 
@@ -52,7 +60,9 @@ export default function Appssed() {
   };
   return (
     <View style={styles.appcontainer}>
-      <GoalsInput onPressFunction={all_goals_comp} />
+      <Button title="Add goal" onPress={toggleModalVisible}/>
+
+      <GoalsInput isModalVisible = {isModalVisible}  onPressFunction={all_goals_comp} />
 
       <View style={styles.goalsContainer}>
         <FlatList

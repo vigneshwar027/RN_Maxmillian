@@ -167,4 +167,6 @@ ScrollView:
   Button is a self closing component and it does not take style as prop coz it is already styled and u can't influence it further, if u wanna style more then u wanna go for button pressable component.
 
 
-  Note : when u move all the components to the component section only the components should move all the necessary values and function should be passed only as a prop.
+  Note : when u move all the components to the component section you should move all the necessary values and function and state variable pertaining to component to it.
+
+  Though u cant directly apply styles to the button, u can modify it's width and height by simply wrapping it in a View but if u wanna change the text color then u wanna go for pressable
