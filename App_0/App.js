@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
   Button,
@@ -8,7 +7,10 @@ import {
   View,
   ScrollView,
   FlatList,
+  StatusBar,
 } from "react-native";
+
+// import { StatusBar } from "expo-status-bar";
 
 // test commit
 import GoalsItem from "./components/GoalsItems";
@@ -19,13 +21,15 @@ import generateUniqueNumber from "./helpers/goalsHelper";
 export default function Appssed() {
   const [allGoals, setAllGoals] = useState([]);
 
-  const [isModalVisible,setisModalVisible] = useState(false)
+  const [isModalVisible, setisModalVisible] = useState(false);
 
-
-  function toggleModalVisible(){
-    setisModalVisible(true)
+  function makeModalVisible() {
+    setisModalVisible(true);
   }
 
+  function makeModalInVisible() {
+    setisModalVisible(false);
+  }
 
   const all_goals_comp = (goalsInputText) => {
     `the below is one way of appending to the list in usestate but is not the right approach`;
@@ -38,6 +42,8 @@ export default function Appssed() {
       ...current_goal,
       { goal_text: goalsInputText, id: generateUniqueNumber() },
     ]);
+
+    makeModalInVisible();
 
     console.log(`all goals--->  `, allGoals);
   };
@@ -59,31 +65,38 @@ export default function Appssed() {
     );
   };
   return (
-    <View style={styles.appcontainer}>
-      <Button title="Add goal" onPress={toggleModalVisible}/>
+    <>
+    {/* the statusBar compoment from the expo is a sibling component and cannot be used at the root level. */}
+      <StatusBar style="auto" /> 
+      <View style={styles.appcontainer}>
+        <Button title="Add goal" onPress={makeModalVisible} />
 
-      <GoalsInput isModalVisible = {isModalVisible}  onPressFunction={all_goals_comp} />
-
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={allGoals}
-          renderItem={(itemobject) => {
-            console.log("code here", itemobject.item.id);
-            return (
-              <GoalsItem
-                goal_text={itemobject.item.goal_text}
-                id={itemobject.item.id}
-                onDeleteFunction={deleteGoalsHandler}
-              />
-            );
-          }}
-          keyExtractor={(itemobject) => {
-            return itemobject.id;
-          }}
+        <GoalsInput
+          isModalVisible={isModalVisible}
+          onPressFunction={all_goals_comp}
+          onCancelFunction={makeModalInVisible}
         />
 
-        {/* the below is other  way to do it*/}
-        {/* <ScrollView>
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={allGoals}
+            renderItem={(itemobject) => {
+              console.log("code here", itemobject.item.id);
+              return (
+                <GoalsItem
+                  goal_text={itemobject.item.goal_text}
+                  id={itemobject.item.id}
+                  onDeleteFunction={deleteGoalsHandler}
+                />
+              );
+            }}
+            keyExtractor={(itemobject) => {
+              return itemobject.id;
+            }}
+          />
+
+          {/* the below is other  way to do it*/}
+          {/* <ScrollView>
           {allGoals.map((goal) => (
             <View style={styles.individualGoals}>
               <Text key={{ goal }} style={styles.goalsText}>
@@ -92,8 +105,9 @@ export default function Appssed() {
             </View>
           ))}
         </ScrollView> */}
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -108,7 +122,7 @@ const new_style = {
 const styles = StyleSheet.create({
   appcontainer: {
     flex: 1,
-    backgroundColor: "#ffd",
+    backgroundColor: "#3116b6",
     paddingTop: 70,
     paddingHorizontal: 20,
   },
@@ -129,12 +143,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     // alignItems: "center",
   },
-  goalsContainer: { backgroundColor: "pink", marginVertical: 20, flex: 3 },
+  goalsContainer: { marginVertical: 20, flex: 3 },
   goalsText: { color: "white" },
   individualGoals: {
     margin: "2%",
     padding: "2%",
-    backgroundColor: "red",
     borderRadius: 10,
     color: "green",
   },

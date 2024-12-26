@@ -30,12 +30,10 @@ GoalsItem = function (props) {
 export default GoalsItem;
 
 styles = StyleSheet.create({
-  goalsText: { color: "white", backgroundColor: "blue", padding: "2%" },
+  goalsText: { color: "white", backgroundColor: "#6e1fbf", padding: "2%" },
   individualGoals: {
     margin: "2%",
-    backgroundColor: "red",
-    borderRadius: 10,
-    color: "green",
+    borderRadius: 30,
   },
   pressedIOS: {
     opacity: 0.5,
