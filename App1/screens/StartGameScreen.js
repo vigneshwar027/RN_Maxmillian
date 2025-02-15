@@ -8,56 +8,56 @@ import {
   SafeAreaProvider,
   Alert,
 } from "react-native";
-import PrimaryButton from "../components/PrimaryButton";
+import PrimaryButton from "../components/ui/PrimaryButton";
 import { useState } from "react";
-
+import Colors from "../constants/colors";
 onPressHandler = () => {
   console.log("Button pressed");
 };
 
-function StartGameScreen() {
+function StartGameScreen({ pickedNumberHandler }) {
   const [enteredNumber, setEnteredNumber] = useState("");
-
+  console.log("START GAME RUNSS");
   function resetInput() {
     setEnteredNumber("");
   }
 
-  function confirmInputNumber(chosenNumber) {
-    is_int = parseInt(chosenNumber);
-
-    if (isNaN(is_int) || chosenNumber < 0 || chosenNumber > 99) {
+  function confirmInputNumber() {
+    let the_number = parseInt(enteredNumber);
+    if (isNaN(the_number) || the_number < 0 || the_number > 99) {
       Alert.alert("Invalid Number!", "Enter a number between 1 and 99", [
         { text: "Okay", style: "destructive", onPress: resetInput },
       ]);
     } else {
-      console.log("Valid number");
+      pickedNumberHandler(enteredNumber);
     }
   }
 
   function numberInputHandler(enteredText) {
-    setEnteredNumber(enteredText);
     console.log(enteredText);
+    setEnteredNumber(enteredText);
   }
-  3;
 
   return (
-    <View style={styles.outside_box}>
-      <View>
-        <TextInput
-          style={styles.text_input}
-          keyboardType="number-pad"
-          maxLength={2}
-          onChangeText={numberInputHandler}
-          value={enteredNumber}
-        />
-      </View>
-
-      <View style={[styles.buttons_container]}>
-        <View style={styles.indiv_button_container}>
-          <PrimaryButton onPressHandler={resetInput} text="Reset" />
+    <View style={{ alignItems: "center" }}>
+      <View style={styles.outside_box}>
+        <View>
+          <TextInput
+            style={styles.text_input}
+            keyboardType="number-pad"
+            maxLength={3}
+            onChangeText={numberInputHandler}
+            value={enteredNumber}
+          />
         </View>
-        <View style={styles.indiv_button_container}>
-          <PrimaryButton onPressHandler={confirmInputNumber} text="Confirm" />
+
+        <View style={[styles.buttons_container]}>
+          <View style={styles.indiv_button_container}>
+            <PrimaryButton onPressHandler={resetInput} text="Reset" />
+          </View>
+          <View style={styles.indiv_button_container}>
+            <PrimaryButton onPressHandler={confirmInputNumber} text="Confirm" />
+          </View>
         </View>
       </View>
     </View>
@@ -68,10 +68,10 @@ export default StartGameScreen;
 
 const styles = StyleSheet.create({
   outside_box: {
-    backgroundColor: "#72063c",
+    backgroundColor: Colors.primary500,
     width: "90%",
     // width: 210,
-    marginTop: "30%",
+    marginTop: 100,
     borderRadius: 8,
     justifyContent: "space-between",
     alignItems: "center",
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   text_input: {
     marginTop: 50,
     marginLeft: 30,
-    borderBottomColor: "#Ddb52f",
+    borderBottomColor: Colors.accent500,
     borderBottomWidth: 2,
     width: 40,
     fontSize: 30,

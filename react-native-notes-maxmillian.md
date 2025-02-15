@@ -76,8 +76,7 @@ Justify-content - aligns the item within the container along the main axis
 
 alignItem - aligns items within the container along the cross axis
 
-The above both aligns the item inside them and they dont align themselves			
-
+The above both aligns the item inside them and they dont align themselves
 
 the default behaviour of align items is stretch
 
@@ -106,7 +105,7 @@ while using onpress prop of a button component, u should not call the function u
 
 In List:
 
-... operator spread the items in the given list.
+"..." operator spread the items in the given list.
 
 eg: when a = [1,2,3], [... , 7] ==> [1,2,3,7]
 
@@ -186,8 +185,7 @@ ScrollView:
 
   still it is upto to use it,
 
-
-just hit "react-devtools" in a different terminal to run it 
+just hit "react-devtools" in a different terminal to run it
 
   also RN has a dedicated documentations that speaks about the debugging
 
@@ -197,9 +195,11 @@ just hit "react-devtools" in a different terminal to run it
 
   and we can impose it by applying the flex, which speaks about the ratio it will take among the siblings.
 
-  eg:
+  eg1:
   `<View flex:1>` # this will take the complete 1 out of 1 part which is 100 percent
   `</View>`
+
+eg2:
 
   `<View flex:1>` # this will take the complete 1 out of 5 parts
   `</View>`
@@ -229,45 +229,55 @@ Passing array of style properties
 
   style = {[styles.some_object,styles.some_other_object]}
 
-
-Anything params you pass to a custom component function is received as a dictionary.
+Any params you pass to a custom component function is received as a dictionary.
 
   eg:
-    <CustomButon
+    `<CustomButon
     text = 'some button  text'
     on_press = some_func
-    />
+    />`
 
-    function CustomButon(props){
-      <Text>props.text</Text>
+    function CustomButon(props){`<Text>`props.text`</Text>`
     }
 
-    or 
+    or
 
-    function CustomButon({props}){
-      <Text>text</Text>
+    function CustomButon({props}){`<Text>`text`</Text>`
     }
 
+overflow: hidden
 
-
-overflow: hidden 
-
-  this is will ensure that any effect haooening in the inside container is not overflowing outside the outer container. 
-
+  this is will ensure that any effect haooening in the inside container is not overflowing outside the outer container.
 
 Note:
   If you want the siblings to take equal space without using justify or align items or hard coding the width or height, just wrap those siblings individually into  a view and assign them a flex value to inherit the parent container's space
 
-
   ImageBackground is a built in component of RN that renders the image in the background.
-
 
   checking out the folders
 
-  1. ../ --> means you wanna checkout or go one folder upwards.
-
-  2. ./ --> means that in the same folder. denoting that it is in same folder using "./" is mandatory in RN.
-
-
+1. ../ --> means you wanna checkout or go one folder upwards.
+2. ./ --> means that in the same folder. denoting that it is in same folder using "./" is mandatory in RN.
 
   For TextInput, Even if the keyboardtype is numeric, the value it rennders is always a string.
+
+  Note: Very important: If any state variable changes,then the whole component where this state variable is declared will re rerun to reflect the most recent change.
+
+
+.bind() operation:
+    you will definitely in a position where you cant call a function because you are referring that inside a DOM but wanna a pass values to it, this is a the time where you use .bind() keyword.
+
+    eg.
+
+    function some_operation(the_param){
+        console.log(this)
+        someoperation_on_param(the_param)
+    }
+
+
+    <CustomButton on_presshandler = {some_operation}> // if u see here you can pass value like some_operation(some_param) coz this will invoke the function while rendering.
+
+    so the only option is <CustomButton on_presshandler = {some_operation.bind(some_param)}>
+
+    while doing so the bind operation creates a copy of function with it's preset params.
+
